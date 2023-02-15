@@ -3,6 +3,7 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 import CustomLoader from "../utils/CustomLoader";
 import customStyles from "../utils/CustomStyles";
+import styled from 'styled-components';
 
 const Table = () => {
   const [data, setData] = useState([]);
@@ -96,7 +97,22 @@ const paginationComponentOptions = {
   selectAllRowsItemText: 'Todos',
 };
 
+const StyledTable = styled.table`
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* Otros estilos que desees agregar */
+`;
+
+const TableContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
   return (
+    <TableContainer>
+    <StyledTable>
     <div>
       <input 
         type="text"
@@ -113,7 +129,7 @@ const paginationComponentOptions = {
   	  progressComponent={<CustomLoader />}
       pagination
       paginationComponentOptions={paginationComponentOptions}
-      
+      striped={true}
       responsive={true}
       bordered={true}
       expandableRows
@@ -122,9 +138,12 @@ const paginationComponentOptions = {
   		highlightOnHover
 	  	pointerOnHover
       orderCellsTop={true}
-      fixedHeader={true}
+      fixedHeader
+      fixedHeaderScrollHeight="800px"
     />
     </div>
+    </StyledTable>
+    </TableContainer>
   );
 };
 
