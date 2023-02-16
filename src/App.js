@@ -2,8 +2,6 @@ import Table from "./layouts/table/Table";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/globalStyles';
-//import TableContainerStyles from './styles/tableContainerStyles';
-import TableStyles from './styles/tableStyles';
 import AddProjectForm from "./components/AddProyectForm";
 import TableContainerStyles from "./styles/tableContainerStyles";
 import { Container,Row, Col } from "react-bootstrap";
