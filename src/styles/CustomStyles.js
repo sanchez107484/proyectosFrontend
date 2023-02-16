@@ -13,7 +13,7 @@ const customStyles = {
 	},
 	rows: {
 		highlightOnHoverStyle: {
-			backgroundColor: 'rgb(230, 244, 244)',
+			backgroundColor: '#0842986b',
 			borderBottomColor: '#FFFFFF',
 			borderRadius: '25px',
 			outline: '1px solid #FFFFFF',
