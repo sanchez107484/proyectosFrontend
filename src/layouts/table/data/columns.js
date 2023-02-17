@@ -1,13 +1,31 @@
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import EditProyectoModal from '../../../components/EditProyectoModal';
+import React, { useState } from 'react';
 
-const columns = [
-    {
+function Modal(){
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+  
+  return (
+    <EditProyectoModal 
+        project={null} 
+        show={showModal} 
+        handleClose={handleCloseModal} 
+        handleSave={null}/>
+  );
+
+}
+const columns = [ 
+  {
       name: 'Editar',
       cell: row => (      
         <div style={{ padding: "10px" }}>
           <div style={{ display: "inline-block", marginRight: "10px" }}>
-            <FontAwesomeIcon icon={faEdit} size="lg" onClick={() => alert(`Editing ${row.CROQUIS}`)}/>
+            <FontAwesomeIcon icon={faEdit} size="lg" onClick={Modal}/>
           </div>
         </div>
       ),
@@ -71,5 +89,6 @@ const columns = [
     },
     
   ];
+
 
 export default columns;
