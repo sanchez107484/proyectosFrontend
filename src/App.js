@@ -5,6 +5,9 @@ import { GlobalStyle } from './styles/globalStyles';
 import AddProjectForm from "./components/AddProyectForm";
 import { Container,Row, Col, Card } from "react-bootstrap";
 
+function reloadPage() {
+  window.location.reload();
+}
 
 function App() {
   return (
@@ -17,7 +20,7 @@ function App() {
             <Row className="my-2">
               <Col className="px-2">
                 <Card bg="white" text="dark" style={{ borderRadius: '10px', padding: '10px' }}>
-                  <AddProjectForm/>
+                  <AddProjectForm reloadPage={reloadPage}/>
                 </Card>
               </Col>
             </Row>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import proyectosService from '../services/proyectosService';
-//import refreshTable from "../utils/refreshTable";
 
-const AddProjectForm = () => {
-  const [newProyecto, setNewProyecto] = useState({
+
+const AddProjectForm = (props) => {
+  const proyectoVacio = {
     PROYECTOS: "",
     TRABAJO: "",
     Mote: "",
@@ -12,23 +12,17 @@ const AddProjectForm = () => {
     Situacion: "",
     Localidad: "",
     Telefono: "",
-  });
+  }
+
+  const [newProyecto, setNewProyecto] = useState(proyectoVacio);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     proyectosService.createProyecto(newProyecto)
     .then((response) => {
       console.log("Nuevo proyecto:", response);
-      setNewProyecto({
-        PROYECTOS: "",
-        TRABAJO: "",
-        Mote: "",
-        Promotor: "",
-        Situacion: "",
-        Localidad: "",
-        Telefono: "",
-      });
-      //refreshTable();
+      setNewProyecto(proyectoVacio);
+      props.reloadPage();
     });
     
   };

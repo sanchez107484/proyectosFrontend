@@ -1,8 +1,15 @@
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const columns = [
     {
-      name: 'Actions',
-      cell: row => (
-        <button onClick={() => alert(`Editing ${row.CROQUIS}`)}>Edit</button>
+      name: 'Editar',
+      cell: row => (      
+        <div style={{ padding: "10px" }}>
+          <div style={{ display: "inline-block", marginRight: "10px" }}>
+            <FontAwesomeIcon icon={faEdit} size="lg" onClick={() => alert(`Editing ${row.CROQUIS}`)}/>
+          </div>
+        </div>
       ),
       ignoreRowClick: true,
     },

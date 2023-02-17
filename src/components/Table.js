@@ -24,6 +24,7 @@ const Table = () => {
     };
     fetchData();
   }
+  
   useEffect(() => {
     cargarProyectos();
   }, []);
