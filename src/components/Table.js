@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import DataTable from "react-data-table-component";
-import CustomSpinner from "../../utils/CustomSpinner";
-import customStyles from "../../styles/CustomStyles";
-import paginationComponentOptions from "../../utils/paginationComponentOptions";
-import columns from "./data/columns";
+import CustomSpinner from "../utils/CustomSpinner";
+import customStyles from "../styles/CustomStyles";
+import paginationComponentOptions from "../utils/paginationComponentOptions";
+import columns from "../layouts/table/data/columns";
+import { Form } from "react-bootstrap";
+import proyectosServices from '../services/proyectosService';
+
 
 const Table = () => {
   const [data, setData] = useState([]);
@@ -12,18 +14,21 @@ const Table = () => {
   const [filteredData, setFilteredData] = useState(data);
   const [searchValue, setSearchValue] = useState("");
   const searchInputRef = useRef(null);
-  
-  useEffect(() => {
+
+  const cargarProyectos = async () => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:4000/LISTADO");
-      setData(result.data);
+      proyectosServices.getProyectos()
+        .then((response) => {
+          setData(response);      
+        });
     };
-    console.log("LUISFER useEffect 1");
     fetchData();
+  }
+  useEffect(() => {
+    cargarProyectos();
   }, []);
 
   useEffect(() => {
-    console.log("LUISFER useEffect 2",searchValue);
 		const timeout = setTimeout(() => {
       if (searchValue === ""){
         setFilteredData(data);
@@ -34,14 +39,12 @@ const Table = () => {
 	});
 
   useEffect(() => {
-    console.log("LUISFER useEffect 3");
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, []);
 
   const handleFilter = (value) => {
-    console.log("LUISFER handleFilter");
     if (value !== "") {
       const filtered = data.filter((item) => {
         return Object.values(item).some((prop) => {
@@ -58,38 +61,30 @@ const Table = () => {
   };
 
   const handleSearch = (e) => {
-    console.log("LUISFER handleSearch");
     const value = e.target.value;
     setSearchValue(value);
     handleFilter(value);
   };
   
 
-  
-
-/* const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>; 
-
-expandableRows
-          expandableRowsComponent={ExpandedComponent}
-
-*/
-  
-
   return (
-    
       <div>
-      
-        <input
-            type="text"
-            ref={searchInputRef}
-            value={searchValue}
-            onChange={handleSearch}
-            onKeyUp={handleSearch}
-            placeholder="Search..."
-          />
-        
+        <div style={{float: "right"}}>
+          <span>Buscador:</span>
+          <Form>
+            <Form.Group>
+              <Form.Control 
+                type="text" 
+                placeholder="Buscar" 
+                className="form-control mb-3" 
+                value={searchValue}
+                onChange={handleSearch}
+                onKeyUp={handleSearch}
+                />
+            </Form.Group>
+          </Form>
+        </div>
         <DataTable
-          title="Listado proyectos"
           columns={columns}
           data={filteredData}
           progressPending={pending}
@@ -100,15 +95,10 @@ expandableRows
           responsive={true}
           bordered={true}
           customStyles={customStyles}
-          highlightOnHover
-          pointerOnHover
           fixedHeader
           fixedHeaderScrollHeight="800px"
         /> 
-      
       </div>
-      
-      
   );
   
 };

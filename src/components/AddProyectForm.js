@@ -1,29 +1,46 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import proyectosService from '../services/proyectosService';
+//import refreshTable from "../utils/refreshTable";
 
 const AddProjectForm = () => {
-  const [formValues, setFormValues] = useState({
-    proyecto: "",
-    trabajo: "",
-    mote: "",
-    promotor: "",
-    situacion: "",
-    localidad: "",
-    telefono: "",
+  const [newProyecto, setNewProyecto] = useState({
+    PROYECTOS: "",
+    TRABAJO: "",
+    Mote: "",
+    Promotor: "",
+    Situacion: "",
+    Localidad: "",
+    Telefono: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Aquí puedes hacer la llamada a la base de datos para guardar el nuevo proyecto
-    console.log("Form submitted with values:", formValues);
+    proyectosService.createProyecto(newProyecto)
+    .then((response) => {
+      console.log("Nuevo proyecto:", response);
+      setNewProyecto({
+        PROYECTOS: "",
+        TRABAJO: "",
+        Mote: "",
+        Promotor: "",
+        Situacion: "",
+        Localidad: "",
+        Telefono: "",
+      });
+      //refreshTable();
+    });
+    
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    setNewProyecto({ ...newProyecto, [name]: value });
   };
 
   return (
+    <div>
+    <h2>Añadir proyecto</h2>
     <Form onSubmit={handleSubmit}>
       <Row >
         <Col>
@@ -31,8 +48,8 @@ const AddProjectForm = () => {
             <Form.Label>Proyecto:</Form.Label>
             <Form.Control
               type="text"
-              name="proyecto"
-              value={formValues.proyecto}
+              name="PROYECTOS"
+              value={newProyecto.PROYECTOS}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -42,8 +59,8 @@ const AddProjectForm = () => {
             <Form.Label>Trabajo:</Form.Label>
             <Form.Control
               type="text"
-              name="trabajo"
-              value={formValues.trabajo}
+              name="TRABAJO"
+              value={newProyecto.TRABAJO}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -53,8 +70,8 @@ const AddProjectForm = () => {
             <Form.Label>Mote:</Form.Label>
             <Form.Control
               type="text"
-              name="mote"
-              value={formValues.mote}
+              name="Mote"
+              value={newProyecto.Mote}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -64,8 +81,8 @@ const AddProjectForm = () => {
             <Form.Label>Promotor:</Form.Label>
             <Form.Control
               type="text"
-              name="promotor"
-              value={formValues.promotor}
+              name="Promotor"
+              value={newProyecto.Promotor}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -75,8 +92,8 @@ const AddProjectForm = () => {
             <Form.Label>Situación:</Form.Label>
             <Form.Control
               type="text"
-              name="situacion"
-              value={formValues.situacion}
+              name="Situacion"
+              value={newProyecto.Situacion}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -86,8 +103,8 @@ const AddProjectForm = () => {
             <Form.Label>Localidad:</Form.Label>
             <Form.Control
               type="text"
-              name="localidad"
-              value={formValues.localidad}
+              name="Localidad"
+              value={newProyecto.Localidad}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -97,8 +114,8 @@ const AddProjectForm = () => {
             <Form.Label>Teléfono:</Form.Label>
             <Form.Control
               type="text"
-              name="telefono"
-              value={formValues.telefono}
+              name="Telefono"
+              value={newProyecto.Telefono}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -108,6 +125,7 @@ const AddProjectForm = () => {
         </Col>
       </Row>
     </Form>
+    </div>
   );
 };
 
