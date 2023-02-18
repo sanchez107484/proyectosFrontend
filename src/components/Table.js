@@ -3,7 +3,6 @@ import DataTable from "react-data-table-component";
 import CustomSpinner from "../utils/CustomSpinner";
 import customStyles from "../styles/CustomStyles";
 import paginationComponentOptions from "../utils/paginationComponentOptions";
-import columns from "../layouts/table/data/columns";
 import { Form } from "react-bootstrap";
 import proyectosServices from '../services/proyectosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,24 +13,12 @@ import { proyectoVacio } from "./ProyectoVacio";
 
 const Table = () => {
   const [data, setData] = useState([]);
-  const [pending, setPending] = React.useState(true);
+  const [pending, setPending] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
   const [searchValue, setSearchValue] = useState("");
   const searchInputRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
-  const [proyectoSeleccionado, setProyectoSeleccionado] = useState(proyectoVacio);
-
-  const handleShowModal = (proyecto) => {
-    setProyectoSeleccionado(proyecto);
-    setShowModal(true);
-    console.log("LUISFER",proyecto);
-    console.log("LUISFER",proyectoVacio);
-    console.log("LUISFER",proyectoSeleccionado);
-  }
-  const handleCloseModal = () => {
-    setProyectoSeleccionado(null);
-    setShowModal(false);
-  }
+  const [proyectoSeleccionado, setProyectoSeleccionado] = useState({});
   
   const cargarProyectos = async () => {
     const fetchData = async () => {
@@ -85,6 +72,16 @@ const Table = () => {
     handleFilter(value);
   };
   
+  const handleShowModal = (proyecto) => {
+    setProyectoSeleccionado(proyecto);
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => {
+    setProyectoSeleccionado({});
+    setShowModal(false);
+  }
+
   const columns = [ 
     {
         name: 'Editar',
@@ -187,7 +184,7 @@ const Table = () => {
           fixedHeader
           fixedHeaderScrollHeight="800px"
         /> 
-        <EditProyectoModal project={proyectoSeleccionado} show={showModal} handleClose={handleCloseModal} handleSave={handleCloseModal}/>
+        <EditProyectoModal project={proyectoSeleccionado} show={showModal} handleClose={handleCloseModal} handleSave={cargarProyectos}/>
       </div>
 
       

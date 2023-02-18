@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 
 const EditProyectoModal = ({ project, show, handleClose, handleSave }) => {
   const [editedProject, setEditedProject] = useState(project);
+
+  /* useEffect(() => setEditedProject(project),[project]); */
+
 
   const handleChange = (e) => {
     setEditedProject({ ...editedProject, [e.target.name]: e.target.value });
@@ -14,11 +17,16 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`/api/projects/${editedProject.id}`, {
-        ...editedProject,
+      await axios.put(`http://localhost:4000/LISTADO/${project.CROQUIS}`, {...editedProject})
+      .then(response => {
+        console.log(response.data); // datos de la respuesta del servidor
+      })
+      .catch(error => {
+        console.error(error);
       });
-      handleSave(response.data);
+      handleSave();
       handleClose();
+      setEditedProject({});
     } catch (error) {
       console.error(error);
     }
@@ -27,34 +35,37 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Project</Modal.Title>
+        <Modal.Title>Editar Proyecto</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleFormSubmit}>
-          <Form.Group controlId="formBasicTitle">
-            <Form.Label>Title</Form.Label>
+          <Form.Group controlId="formBasicCROQUIS">
+            <Form.Label>CROQUIS</Form.Label>
             <Form.Control
               type="text"
-              name="title"
+              name="CROQUIS"
+              placeholder={project.CROQUIS}
               value={editedProject.CROQUIS}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicDescription">
-            <Form.Label>Description</Form.Label>
+          <Form.Group controlId="formBasicPROYECTOS">
+            <Form.Label>PROYECTOS</Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
-              name="description"
+              name="PROYECTOS"
+              placeholder={project.PROYECTOS}
               value={editedProject.PROYECTOS}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicStatus">
-            <Form.Label>Status</Form.Label>
+          <Form.Group controlId="formBasicTRABAJO">
+            <Form.Label>TRABAJO</Form.Label>
             <Form.Control
               type="text"
-              name="status"
+              name="TRABAJO"
+              placeholder={project.TRABAJO}
               value={editedProject.TRABAJO}
               onChange={handleChange}
             />
