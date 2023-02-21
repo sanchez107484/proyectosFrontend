@@ -8,10 +8,9 @@ import proyectosServices from '../services/proyectosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditProyectoModal from './EditProyectoModal';
-import { proyectoVacio } from "./ProyectoVacio";
 
 
-const Table = () => {
+const Table = (props) => {
   const [data, setData] = useState([]);
   const [pending, setPending] = useState(true);
   const [filteredData, setFilteredData] = useState(data);

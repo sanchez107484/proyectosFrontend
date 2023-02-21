@@ -14,14 +14,22 @@ const api = {
   
   getProyectos: async () => {
       try {
-          const response = await axios.get(`${API_URL}/`);
-          return response.data;
-        } catch (error) {
-          console.error(error);
-        }
+        const response = await axios.get(`${API_URL}/`);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
   
-  }
+  },
 
+  updateProyecto: async (proyectoEditado) => {
+    try {
+      const response = await axios.put(`${API_URL}/${proyectoEditado.CROQUIS}`, {...proyectoEditado});
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 
 

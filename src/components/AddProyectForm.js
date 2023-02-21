@@ -4,16 +4,6 @@ import proyectosService from '../services/proyectosService';
 import { proyectoVacio } from "./ProyectoVacio";
 
 const AddProjectForm = (props) => {
-  /* const proyectoVacio = {
-    PROYECTOS: "",
-    TRABAJO: "",
-    Mote: "",
-    Promotor: "",
-    Situacion: "",
-    Localidad: "",
-    Telefono: "",
-  } */
-
   const [newProyecto, setNewProyecto] = useState(proyectoVacio);
 
   const handleSubmit = async (event) => {

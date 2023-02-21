@@ -17,7 +17,22 @@ function Modal(){
         handleClose={handleCloseModal} 
         handleSave={null}/>
   );
-
+/* 
+Croquis_Inicio
+Croquis_Fin 
+Proyecto_Ejecucion_Inicio 
+Proyecto_Ejecucion_Fin 
+Visado_Enviado
+Visado_Descargado
+Licencia
+Factura
+Obras_Construccion_Inicio
+Obras_Construccion_Fin 
+VisadoFO_Enviado 
+VisadoFO_Descargado 
+FacturaFO 
+Estado
+*/
 }
 const columns = [ 
   {
