@@ -12,8 +12,8 @@ const AddProjectForm = (props) => {
     proyectosService.createProyecto(newProyecto)
     .then((response) => {
       console.log("Nuevo proyecto:", response);
-      setNewProyecto(newProyecto);
-      props.reloadPage();
+      setNewProyecto(newProyectoVacio);
+      //props.reloadPage();
     });
     
   };
