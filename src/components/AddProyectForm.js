@@ -13,7 +13,7 @@ const AddProjectForm = (props) => {
     .then((response) => {
       console.log("Nuevo proyecto:", response);
       setNewProyecto(newProyectoVacio);
-      //props.reloadPage();
+      props.reloadPage();
     });
     
   };
