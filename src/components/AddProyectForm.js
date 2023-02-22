@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import proyectosService from '../services/proyectosService';
-import { proyectoVacio } from "./ProyectoVacio";
+import { newProyectoVacio } from "./newProyectoVacio";
 import locals from "../locals/locals";
 
 const AddProjectForm = (props) => {
-  const [newProyecto, setNewProyecto] = useState(proyectoVacio);
+  const [newProyecto, setNewProyecto] = useState(newProyectoVacio);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     proyectosService.createProyecto(newProyecto)
     .then((response) => {
       console.log("Nuevo proyecto:", response);
-      setNewProyecto(proyectoVacio);
+      setNewProyecto(newProyecto);
       props.reloadPage();
     });
     

@@ -1,5 +1,5 @@
 
-export const proyectoVacio = {
+export const newProyectoVacio = {
     CROQUIS : "",
     PROYECTOS : "",
     TRABAJO : "",
@@ -21,5 +21,5 @@ export const proyectoVacio = {
     VisadoFO_Enviado : "",
     VisadoFO_Descargado : "",
     FacturaFO : "",
-    Estado : ""
+    Estado : "En curso"
 }
