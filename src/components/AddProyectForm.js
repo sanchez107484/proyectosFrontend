@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import proyectosService from '../services/proyectosService';
 import { proyectoVacio } from "./ProyectoVacio";
+import locals from "../locals/locals";
 
 const AddProjectForm = (props) => {
   const [newProyecto, setNewProyecto] = useState(proyectoVacio);
@@ -29,7 +30,7 @@ const AddProjectForm = (props) => {
       <Row >
         <Col>
           <Form.Group controlId="formProyecto">
-            <Form.Label>Proyecto:</Form.Label>
+            <Form.Label>{locals.PROYECTOS}:</Form.Label>
             <Form.Control
               type="text"
               name="PROYECTOS"
@@ -40,7 +41,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col className = "col-md-2">
           <Form.Group controlId="formTrabajo">
-            <Form.Label>Trabajo:</Form.Label>
+            <Form.Label>{locals.TRABAJO}:</Form.Label>
             <Form.Control
               type="text"
               name="TRABAJO"
@@ -51,7 +52,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col className = "col-md-2">
           <Form.Group controlId="formMote">
-            <Form.Label>Mote:</Form.Label>
+            <Form.Label>{locals.Mote}:</Form.Label>
             <Form.Control
               type="text"
               name="Mote"
@@ -62,7 +63,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col>
           <Form.Group controlId="formPromotor">
-            <Form.Label>Promotor:</Form.Label>
+            <Form.Label>{locals.Promotor}:</Form.Label>
             <Form.Control
               type="text"
               name="Promotor"
@@ -73,7 +74,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col>
           <Form.Group controlId="formSituacion">
-            <Form.Label>Situación:</Form.Label>
+            <Form.Label>{locals.Situacion}:</Form.Label>
             <Form.Control
               type="text"
               name="Situacion"
@@ -84,7 +85,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col>
           <Form.Group controlId="formLocalidad">
-            <Form.Label>Localidad:</Form.Label>
+            <Form.Label>{locals.Localidad}:</Form.Label>
             <Form.Control
               type="text"
               name="Localidad"
@@ -95,7 +96,7 @@ const AddProjectForm = (props) => {
         </Col>
         <Col>
           <Form.Group controlId="formTelefono">
-            <Form.Label>Teléfono:</Form.Label>
+            <Form.Label>{locals.Telefono}:</Form.Label>
             <Form.Control
               type="text"
               name="Telefono"

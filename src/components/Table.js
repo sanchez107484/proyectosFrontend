@@ -8,7 +8,8 @@ import proyectosServices from '../services/proyectosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditProyectoModal from './EditProyectoModal';
-
+import conditionalCellStyles from "../utils/conditionalCellStyles";
+import locals from "../locals/locals";
 
 const Table = (props) => {
   const [data, setData] = useState([]);
@@ -81,9 +82,13 @@ const Table = (props) => {
     setShowModal(false);
   }
 
+  const enMayusculas = (text) => {
+    return text.toUpperCase();
+  }
+
   const columns = [ 
     {
-        name: 'Editar',
+        name: locals.Editar,
         cell: row => (      
           <div style={{ padding: "10px" }}>
             <div style={{ display: "inline-block", marginRight: "10px" }}>
@@ -94,63 +99,71 @@ const Table = (props) => {
         ignoreRowClick: true,
       },
       {
-        name: 'CROQUIS',
+        name: enMayusculas(locals.CROQUIS),
         selector: row => row['CROQUIS'],
         sortable: true,
         wrap: true,
         width: "1/12",
       },
       {
-        name: 'PROYECTOS',
+        name: enMayusculas(locals.PROYECTOS),
         selector: row => row['PROYECTOS'],
         sortable: true,
         wrap: true,
         width: "1/12",
       },
       {
-        name: 'TRABAJO',
+        name: enMayusculas(locals.TRABAJO),
         selector: row => row['TRABAJO'],
         sortable: true,
         wrap: true,
         width: "3/12",
       },
       {
-        name: 'MOTE',
+        name: enMayusculas(locals.Mote),
         selector: row => row['Mote'],
         sortable: true,
         wrap: true,
         width: "1/12",
       },
       {
-        name: 'PROMOTOR',
+        name: enMayusculas(locals.Promotor),
         selector: row => row['Promotor'],
         sortable: true,
         wrap: true,
         width: "2/12",
       },
       {
-        name: 'SITUACION',
+        name: enMayusculas(locals.Situacion),
         selector: row => row['Situacion'],
         sortable: true,
         wrap: true,
         width: "2/12",
       },
       {
-        name: 'LOCALIDAD',
+        name: enMayusculas(locals.Localidad),
         selector: row => row['Localidad'],
         sortable: true,
         wrap: true,
         width: "1/12",
       },
       {
-        name: 'TELEFONO',
+        name: enMayusculas(locals.Telefono),
         selector: row => row['Telefono'],
         sortable: true,
         wrap: true,
-        width: "1/12",
+      },
+      {
+        name: enMayusculas(locals.Estado),
+        selector: row => row['Estado'],
+        sortable: true,
+        wrap: true,
+        conditionalCellStyles: conditionalCellStyles
       },
       
     ];
+
+    
 
   return (
       <div>

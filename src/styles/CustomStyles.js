@@ -18,12 +18,13 @@ const customStyles = {
 			borderRadius: '25px',
 			outline: '1px solid #FFFFFF',
 		},
+		
 	},
 	pagination: {
 		style: {
 			border: 'none',
 		},
-	},
+	}
 };
 
 export default customStyles;
