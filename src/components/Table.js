@@ -10,8 +10,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditProyectoModal from './EditProyectoModal';
 import conditionalCellStyles from "../utils/conditionalCellStyles";
 import locals from "../locals/locals";
+import ExpandedComponent from "./ExpandedComponent";
 
-const Table = (props) => {
+const Table = () => {
   const [data, setData] = useState([]);
   const [pending, setPending] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
@@ -85,6 +86,8 @@ const Table = (props) => {
   const enMayusculas = (text) => {
     return text.toUpperCase();
   }
+
+  
 
   const columns = [ 
     {
@@ -163,7 +166,6 @@ const Table = (props) => {
       
     ];
 
-    
 
   return (
       <div>
@@ -195,6 +197,12 @@ const Table = (props) => {
           customStyles={customStyles}
           fixedHeader
           fixedHeaderScrollHeight="800px"
+          highlightOnHover
+		      pointerOnHover
+          expandableRows 
+          expandableRowsComponent={ExpandedComponent}
+          expandOnRowClicked
+          
         /> 
         <EditProyectoModal project={proyectoSeleccionado} show={showModal} handleClose={handleCloseModal} handleSave={cargarProyectos}/>
       </div>

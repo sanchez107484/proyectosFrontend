@@ -21,7 +21,19 @@ const locals = {
     VisadoFO_Descargado:"VFO.Descargado", 
     FacturaFO:"FacturaFO", 
     Estado:"Estado",
-    Editar:"Editar"
+    Editar:"Editar",
+    subheader:{
+        CROQUIS:"Croquis",
+        Proyecto_Ejecucion: "Proyecto ejecución",
+        Visado: "Visado",
+        Obras_Construcción: "Obras de construcción",
+        VisadoFO: "Visado F.O.",
+        Inicio: "Inicio",
+        Fin: "Fin",
+        Enviado: "Enviado",
+        Descargado: "Descargado",
+        FacturaFO: "Factura F.O."
+    }
 }
 
 export default locals;

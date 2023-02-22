@@ -27,7 +27,7 @@ function App() {
             <Row className="my-2">
               <Col className="px-2">
                 <Card bg="none" text="dark" style={{ borderRadius: '10px', padding: '10px' }}>
-                <Table reloadPage={reloadPage}/>
+                <Table/>
                 </Card>
               </Col>
             </Row>
