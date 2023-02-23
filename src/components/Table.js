@@ -4,7 +4,7 @@ import CustomSpinner from "../utils/CustomSpinner";
 import customStyles from "../styles/CustomStyles";
 import paginationComponentOptions from "../utils/paginationComponentOptions";
 import { Form } from "react-bootstrap";
-import proyectosServices from '../services/proyectosService';
+import proyectosServices from '../services/ProyectosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import EditProyectoModal from './EditProyectoModal';
@@ -12,7 +12,7 @@ import conditionalCellStyles from "../utils/conditionalCellStyles";
 import locals from "../locals/locals";
 import ExpandedComponent from "./ExpandedComponent";
 
-const Table = () => {
+const Table = ({isLoggedIn, onLogout}) => {
   const [data, setData] = useState([]);
   const [pending, setPending] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
@@ -20,7 +20,7 @@ const Table = () => {
   const searchInputRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [proyectoSeleccionado, setProyectoSeleccionado] = useState({});
-  
+
   const cargarProyectos = async () => {
     const fetchData = async () => {
       proyectosServices.getProyectos()
@@ -31,9 +31,13 @@ const Table = () => {
     fetchData();
   }
   
-  useEffect(() => {
-    cargarProyectos();
-  }, []);
+  /* useEffect(() => {
+    if (isLoggedIn){
+      cargarProyectos();
+    }else{
+      return <Navigate to="/login" />;
+    }
+  }, [isLoggedIn]); */
 
   useEffect(() => {
 		const timeout = setTimeout(() => {

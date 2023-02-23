@@ -1,41 +1,34 @@
-import Table from "./components/Table";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import Login from './components/Login';
+import ListadoProyectos from './components/ListadoProyectos';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from './styles/globalStyles';
-import AddProjectForm from "./components/AddProyectForm";
-import { Container,Row, Col, Card } from "react-bootstrap";
-
-function reloadPage() {
-  window.location.reload();
-}
+import { BrowserRouter, Router, Routes, Route, Link } from 'react-router-dom';
+import React from "react";
 
 function App() {
-  return (
-    <ThemeProvider theme={{}}>
-      <div>
-        <GlobalStyle />
-        <Container className="mt-4 mb-4 p-4 d-flex justify-content-center my-4">
-          <div>
-            <h1 style={{textAlign: 'center'}}>LISTADO DE PROYECTOS</h1>
-            <Row className="my-2">
-              <Col className="px-2">
-                <Card bg="white" text="dark" style={{ borderRadius: '10px', padding: '10px' }}>
-                  <AddProjectForm reloadPage={reloadPage}/>
-                </Card>
-              </Col>
-            </Row>
-            <Row className="my-2">
-              <Col className="px-2">
-                <Card bg="none" text="dark" style={{ borderRadius: '10px', padding: '10px' }}>
-                <Table/>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </Container>
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
 
-    </div>
-    </ThemeProvider>
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+  };
+
+  
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={isLoggedIn ? <ListadoProyectos isLoggedIn={isLoggedIn} onLogout={handleLogout} /> : <Login onLogin={handleLogin} />} />  
+      {/*   <Route path="/Login" element={<Login onLogin={handleLogin}/>}/>
+        <Route path="/LISTADO" element={isLoggedIn ? <ListadoProyectos isLoggedIn={isLoggedIn} onLogout={handleLogout} /> : <Login onLogin={handleLogin}/>} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

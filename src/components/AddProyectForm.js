@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import proyectosService from '../services/proyectosService';
+import proyectosService from '../services/ProyectosService';
 import { newProyectoVacio } from "./newProyectoVacio";
 import locals from "../locals/locals";
 

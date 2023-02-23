@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import { Modal, Button, Form, Row, Col} from "react-bootstrap";
-import proyectosService from '../services/proyectosService';
+import proyectosService from '../services/ProyectosService';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import colors from "../styles/colors";

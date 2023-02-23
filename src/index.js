@@ -8,18 +8,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-
-
-// Material Dashboard 2 React Context Provider
-/* import { MaterialUIControllerProvider } from "context";
-
-ReactDOM.render(
-  <BrowserRouter>
-    <MaterialUIControllerProvider>
-      <App />
-    </MaterialUIControllerProvider>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
- */
