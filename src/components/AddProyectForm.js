@@ -11,7 +11,6 @@ const AddProjectForm = (props) => {
     event.preventDefault();
     proyectosService.createProyecto(newProyecto)
     .then((response) => {
-      console.log("Nuevo proyecto:", response);
       setNewProyecto(newProyectoVacio);
       props.reloadPage();
     });
@@ -36,6 +35,7 @@ const AddProjectForm = (props) => {
               name="PROYECTOS"
               value={newProyecto.PROYECTOS}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -47,6 +47,7 @@ const AddProjectForm = (props) => {
               name="TRABAJO"
               value={newProyecto.TRABAJO}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -58,6 +59,7 @@ const AddProjectForm = (props) => {
               name="Mote"
               value={newProyecto.Mote}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -69,6 +71,7 @@ const AddProjectForm = (props) => {
               name="Promotor"
               value={newProyecto.Promotor}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -80,6 +83,7 @@ const AddProjectForm = (props) => {
               name="Situacion"
               value={newProyecto.Situacion}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -91,6 +95,7 @@ const AddProjectForm = (props) => {
               name="Localidad"
               value={newProyecto.Localidad}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>
@@ -102,6 +107,7 @@ const AddProjectForm = (props) => {
               name="Telefono"
               value={newProyecto.Telefono}
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         </Col>

@@ -11,8 +11,9 @@ import EditProyectoModal from './EditProyectoModal';
 import conditionalCellStyles from "../utils/conditionalCellStyles";
 import locals from "../locals/locals";
 import ExpandedComponent from "./ExpandedComponent";
+import { Navigate } from "react-router-dom";
 
-const Table = ({isLoggedIn, onLogout}) => {
+const Table = () => {
   const [data, setData] = useState([]);
   const [pending, setPending] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
@@ -20,6 +21,14 @@ const Table = ({isLoggedIn, onLogout}) => {
   const searchInputRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [proyectoSeleccionado, setProyectoSeleccionado] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+  };
+
 
   const cargarProyectos = async () => {
     const fetchData = async () => {
@@ -30,14 +39,16 @@ const Table = ({isLoggedIn, onLogout}) => {
     };
     fetchData();
   }
+
   
-  /* useEffect(() => {
+  useEffect(() => {
     if (isLoggedIn){
       cargarProyectos();
     }else{
-      return <Navigate to="/login" />;
+      handleLogout();
+      return <Navigate to="/" />;
     }
-  }, [isLoggedIn]); */
+  }, [isLoggedIn]);
 
   useEffect(() => {
 		const timeout = setTimeout(() => {

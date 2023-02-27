@@ -48,10 +48,8 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(editedProject);
       await proyectosService.updateProyecto(editedProject)
       .then(response => {
-        console.log(response);
         setEditedProject({});
         handleSave();
         handleClose();

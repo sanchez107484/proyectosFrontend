@@ -1,4 +1,6 @@
 const locals = {
+    TITULO_PAGINA: "LISTADO DE PROYECTOS",
+    CerrarSesion: "Cerrar Sesión",
     CROQUIS:"Croquis",
     PROYECTOS:"Proyecto",
     TRABAJO:"Trabajo",

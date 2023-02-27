@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Card } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import authService from '../services/AuthService';
 
-const Login = ({ setLoggedIn }) => {
+
+const Login = (props) => {
   const [error, setError] = useState('');
 
   const formik = useFormik({
@@ -18,10 +19,17 @@ const Login = ({ setLoggedIn }) => {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await axios.post('/login', values);
-        localStorage.setItem('token', response.data.token);
-        setLoggedIn(true);
+        authService.login(values)
+        .then(response => {
+          if (response?.token){
+            localStorage.setItem('token', response.token);
+            props.onLogin();
+          }else{
+            setError('Nombre de usuario o contraseña incorrectos');  
+          }
+        });
       } catch (err) {
+        console.log(err);
         setError('Nombre de usuario o contraseña incorrectos');
       }
     },
@@ -29,8 +37,11 @@ const Login = ({ setLoggedIn }) => {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
-        <Col md={6}>
+    <div className="d-flex justify-content-center align-items-center h-100"
+    style={{display: 'flex',justifyContent: 'center', alignItems: 'center'}}>
+    <Card style={{ width: '20rem',}}>
+      <Card.Body>
+          <Card.Title>Arquitectura Azagra</Card.Title>
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Nombre de usuario</Form.Label>
@@ -62,9 +73,11 @@ const Login = ({ setLoggedIn }) => {
               Iniciar sesión
             </Button>
           </Form>
-        </Col>
-      </Row>
+          </Card.Body>
+      </Card>
+    </div>
     </Container>
+    
   );
 };
 
