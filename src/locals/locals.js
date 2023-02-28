@@ -24,6 +24,8 @@ const locals = {
     FacturaFO:"FacturaFO", 
     Estado:"Estado",
     Editar:"Editar",
+    updateProjectOK: "Proyecto actualizado correctamente.",
+    updateProjectERROR: "Proyecto no se ha podido actualizar.",
     subheader:{
         CROQUIS:"Croquis",
         Proyecto_Ejecucion: "Proyecto ejecución",

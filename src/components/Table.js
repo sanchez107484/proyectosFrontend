@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import CustomSpinner from "../utils/CustomSpinner";
 import customStyles from "../styles/CustomStyles";
 import paginationComponentOptions from "../utils/paginationComponentOptions";
-import { Form } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
 import proyectosServices from '../services/ProyectosService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +22,7 @@ const Table = () => {
   const [showModal, setShowModal] = useState(false);
   const [proyectoSeleccionado, setProyectoSeleccionado] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+  const [showAlertUpdate, setShowAlertUpdate] = useState(false);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -96,6 +97,12 @@ const Table = () => {
   const handleCloseModal = () => {
     setProyectoSeleccionado({});
     setShowModal(false);
+  }
+
+  const handleSaveModal = () => {
+    handleCloseModal();
+    cargarProyectos();
+    setShowAlertUpdate(true);
   }
 
   const enMayusculas = (text) => {
@@ -184,6 +191,7 @@ const Table = () => {
 
   return (
       <div>
+        {showAlertUpdate && (<Alert variant="success" onClose={() => setShowAlertUpdate(false)} dismissible>{locals.updateProjectOK}</Alert>)}
         <div style={{float: "right"}}>
           <span>Buscador:</span>
           <Form>
@@ -219,7 +227,7 @@ const Table = () => {
           expandOnRowClicked
           
         /> 
-        <EditProyectoModal project={proyectoSeleccionado} show={showModal} handleClose={handleCloseModal} handleSave={cargarProyectos}/>
+        <EditProyectoModal project={proyectoSeleccionado} show={showModal} handleClose={handleCloseModal} handleSave={handleSaveModal}/>
       </div>
 
       

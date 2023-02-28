@@ -8,4 +8,5 @@ export const newProyectoVacio = {
     Localidad: "",
     Telefono: "",
     Estado: "En curso"
+
 }

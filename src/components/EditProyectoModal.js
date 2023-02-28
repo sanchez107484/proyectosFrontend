@@ -1,10 +1,11 @@
 import { useState,useEffect } from "react";
-import { Modal, Button, Form, Row, Col} from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import proyectosService from '../services/ProyectosService';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import colors from "../styles/colors";
 import locals from "../locals/locals";
+import moment from 'moment-timezone';
 
 const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
   const [editedProject, setEditedProject] = useState(project);
@@ -20,6 +21,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
     const { name, value, type,checked } = event.target;
     var valor = value;
     if (type === "checkbox"){
+      console.log(name , ":", checked);
       valor = checked;
       if (valor !== true){
         valor = null;
@@ -31,7 +33,11 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
   };
   
   const handleChangeFechas = (date,name) => {
+    if (date){
+      date = moment(date).tz('Europe/Madrid').format('YYYY-MM-DD');
+    }
     setEditedProject({ ...editedProject, [name]: date })
+    
   };
 
   function cambiarColor(valor) {
@@ -45,14 +51,28 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
     }
   }
 
+  function validateEditedProject() {
+    //Fechas por defecto a null
+    for (let key in editedProject) {
+      if (editedProject[key] === '1970-01-01' || editedProject[key] === '0000-00-00') {
+        editedProject[key] = null;
+      }
+    }
+    //Estado inicializo a En curso
+    if (editedProject.Estado === null || editedProject.Estado === ""){
+      editedProject.Estado = "En curso";
+    }
+    return editedProject ;   
+  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await proyectosService.updateProyecto(editedProject)
+      const validatedEditedProject = validateEditedProject();  
+      await proyectosService.updateProyecto(validatedEditedProject)
       .then(response => {
         setEditedProject({});
         handleSave();
-        handleClose();
       })
       .catch(error => {
         console.error(error);
@@ -167,6 +187,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -180,6 +201,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -195,6 +217,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -208,6 +231,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -215,22 +239,20 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
           <Row>
             <Col>
               <Form.Group controlId="formVisado_Enviado">
-                {/* <Form.Label><b>{locals.Visado_Enviado}</b></Form.Label> */}
                 <Form.Check
                   type="checkbox"
                   name="Visado_Enviado"
                   label={locals.Visado_Enviado}
-                  checked={editedProject.Visado_Enviado || null}
+                  checked={editedProject.Visado_Enviado || false}
                   onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group controlId="formVisado_Descargado">
-                {/* <Form.Label><b>{locals.Visado_Descargado}</b></Form.Label> */}
                 <Form.Check
                   type="checkbox"
                   name="Visado_Descargado"
                   label={locals.Visado_Descargado}
-                  checked={editedProject.Visado_Descargado || null}
+                  checked={editedProject.Visado_Descargado || false}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -240,22 +262,20 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
             </Col>
             <Col>
               <Form.Group controlId="formLicencia">
-                {/* <Form.Label><b>{locals.Licencia}</b></Form.Label> */}
                 <Form.Check
                   type="checkbox"
                   name="Licencia"
                   label={locals.Licencia}
-                  checked={editedProject.Licencia || null}
+                  checked={editedProject.Licencia || false}
                   onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group controlId="formFactura">
-                {/* <Form.Label><b>{locals.Factura}</b></Form.Label> */}
                 <Form.Check
                   type="checkbox"
                   name="Factura"
                   label={locals.Factura}
-                  checked={editedProject.Factura || null}
+                  checked={editedProject.Factura || false}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -276,6 +296,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -289,6 +310,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                     isClearable
                     placeholderText="Seleccionar Fecha"
                     className="form-control"
+                    timeZone="Europe/Madrid" 
                   />
               </Form.Group>
             </Col>
@@ -300,7 +322,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                 <Form.Check
                   type="checkbox"
                   name="VisadoFO_Enviado"
-                  checked={editedProject.VisadoFO_Enviado || null}
+                  checked={editedProject.VisadoFO_Enviado || false}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -311,7 +333,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                 <Form.Check
                   type="checkbox"
                   name="VisadoFO_Descargado"
-                  checked={editedProject.VisadoFO_Descargado || null}
+                  checked={editedProject.VisadoFO_Descargado || false}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -322,7 +344,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
                 <Form.Check
                   type="checkbox"
                   name="FacturaFO"
-                  checked={editedProject.FacturaFO || null}
+                  checked={editedProject.FacturaFO || false}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -331,7 +353,7 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
           <hr />
           <Row>
             <Col>
-            <Form.Select value={editedProject.Estado} name={locals.Estado} onChange={handleChange}>
+            <Form.Select value={editedProject.Estado ? editedProject.Estado : "En curso"} name={locals.Estado} onChange={handleChange}>
               <option style={{backgroundColor: colors.enCurso}} value="En curso">En curso</option>
               <option style={{backgroundColor: colors.finalizado}} value="Finalizado">Finalizado</option>
             </Form.Select>
