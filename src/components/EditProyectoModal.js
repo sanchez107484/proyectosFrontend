@@ -21,7 +21,6 @@ const EditProyectoModal = ({ project, show, handleClose, handleSave}) => {
     const { name, value, type,checked } = event.target;
     var valor = value;
     if (type === "checkbox"){
-      console.log(name , ":", checked);
       valor = checked;
       if (valor !== true){
         valor = null;
